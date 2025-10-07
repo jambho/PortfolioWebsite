@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import AnimatedRabbit from './components/AnimatedRabbit';
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState('');
@@ -34,41 +35,57 @@ export default function Home() {
     };
   }, []);
 
-  const projects = [
+  type Project = {
+    id: number;
+    title: string;
+    description: string;
+    tech: string[];
+    status: string;
+    codeUrl?: string;
+    demoUrl?: string;
+  };
+
+  const projects: Project[] = [
     {
       id: 1,
       title: "Discord AI Voice Cloning Bot",
       description: "Developed a Discord bot capable of streaming, recording, and cloning voices in real-time for a group of 10 testers",
       tech: ["Python", "Discord.py", "FFmpeg", "Chatterbox.ai", "Mistral 7B", "LoRA"],
-      status: "In Progress"
+      status: "In Progress",
+      // codeUrl: "",
+      // demoUrl: "",
     },
     {
       id: 2,
       title: "Dungeons and Dragons Desktop App",
       description: "Developed a desktop application in Rust and TypeScript used to play Dungeons and Dragons",
       tech: ["Rust", "TypeScript", "Tauri", "React", "SQLite"],
-      status: "In Progress"
+      status: "In Progress",
+      // demoUrl: "",
     },
     {
       id: 3,
       title: "SDSU Thrift Website",
       description: "In a team of four, created an e-commerce website that facilitates sales between SDSU students",
       tech: ["Vite", "React", "Material UI", "Django", "PostgreSQL"],
-      status: "Completed"
+      status: "Completed",
+      codeUrl: "https://github.com/leanneallen/sdsuthrift",
+      // demoUrl: "",
     },
     {
       id: 4,
       title: "Music Box Cyberphysical System",
       description: "Built a cyberphysical system using Arduino and C++ that plays music from an SD card",
       tech: ["C++", "Arduino", "SD Card", "Hardware"],
-      status: "Completed"
+      status: "Completed",
     },
     {
       id: 5,
       title: "Portfolio Website",
       description: "Personal portfolio website showcasing projects and skills with retro terminal aesthetic",
       tech: ["Next.js", "TypeScript", "Tailwind CSS", "React"],
-      status: "Completed"
+      status: "Completed",
+      // demoUrl: "https://your-live-portfolio-url.com",
     }
   ];
 
@@ -220,9 +237,42 @@ export default function Home() {
                   <span className="text-xs font-mono text-accent">
                     STATUS: {project.status}
                   </span>
-                  <button className="text-foreground hover:text-accent transition-colors text-sm font-mono">
-                    VIEW_CODE →
-                  </button>
+                  {(() => {
+                    if (project.codeUrl) {
+                      return (
+                        <a
+                          href={project.codeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-foreground hover:text-accent transition-colors text-sm font-mono"
+                        >
+                          VIEW_CODE →
+                        </a>
+                      );
+                    }
+                    
+                    if (project.demoUrl) {
+                      return (
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-foreground hover:text-accent transition-colors text-sm font-mono"
+                        >
+                          LIVE_DEMO →
+                        </a>
+                      );
+                    }
+                    
+                    return (
+                      <Link
+                        href="/projects"
+                        className="text-foreground hover:text-accent transition-colors text-sm font-mono"
+                      >
+                        VIEW_DETAILS →
+                      </Link>
+                    );
+                  })()}
                 </div>
               </div>
             ))}
@@ -280,6 +330,9 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Animated Rabbit */}
+      <AnimatedRabbit />
     </div>
   );
 }

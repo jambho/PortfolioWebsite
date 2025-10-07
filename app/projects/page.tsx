@@ -21,7 +21,23 @@ export default function ProjectsPage() {
   }, []);
 
   // Actual projects from resume
-  const projects = [
+  type Project = {
+    id: number;
+    title: string;
+    description: string;
+    longDescription: string;
+    tech: string[];
+    status: string;
+    date: string;
+    role: string;
+    features: string[];
+    challenges: string;
+    results: string;
+    codeUrl?: string;
+    demoUrl?: string;
+  };
+
+  const projects: Project[] = [
     {
       id: 1,
       title: "Discord AI Voice Cloning Bot",
@@ -38,7 +54,10 @@ export default function ProjectsPage() {
         "Synchronized Discord data streams for seamless audio processing"
       ],
       challenges: "Resolving synchronization challenges between Discord's data streams and implementing efficient voice cloning with minimal latency for real-time interaction.",
-      results: "Successfully deployed for testing with a group of 10 users, achieving real-time voice cloning with instant response times."
+      results: "Successfully deployed for testing with a group of 10 users, achieving real-time voice cloning with instant response times.",
+      // Optional links
+      // codeUrl: "",
+      // demoUrl: "",
     },
     {
       id: 2,
@@ -56,7 +75,8 @@ export default function ProjectsPage() {
         "Sub-50ms latency for real-time gameplay interactions"
       ],
       challenges: "Designing an extensible architecture that can handle large numbers of game entities while maintaining low latency for real-time gameplay.",
-      results: "Achieved sub-50ms latency with support for 100+ tokens across 30+ maps, providing smooth gameplay experience."
+      results: "Achieved sub-50ms latency with support for 100+ tokens across 30+ maps, providing smooth gameplay experience.",
+      // demoUrl: "", // Example placeholder
     },
     {
       id: 3,
@@ -74,7 +94,9 @@ export default function ProjectsPage() {
         "Scalable architecture supporting 1000+ user accounts"
       ],
       challenges: "Optimizing page load times and designing a scalable architecture that could handle growing user base with minimal hardware resources.",
-      results: "Reduced page load time by 50% and implemented 40% of webpages, creating a scalable system handling 1000+ user accounts efficiently."
+      results: "Reduced page load time by 50% and implemented 40% of webpages, creating a scalable system handling 1000+ user accounts efficiently.",
+      codeUrl: "https://github.com/leanneallen/sdsuthrift",
+      // demoUrl: "",
     },
     {
       id: 4,
@@ -92,7 +114,8 @@ export default function ProjectsPage() {
         "Volume adjustment proportional to ambient noise detection"
       ],
       challenges: "Implementing a reliable feedback control system that accurately responds to ambient noise while maintaining smooth audio playback.",
-      results: "Successfully created a working prototype with automatic volume adjustment based on environmental conditions, documented with comprehensive LaTeX documentation."
+      results: "Successfully created a working prototype with automatic volume adjustment based on environmental conditions, documented with comprehensive LaTeX documentation.",
+      // codeUrl: "",
     },
     {
       id: 5,
@@ -112,7 +135,8 @@ export default function ProjectsPage() {
         "Accessible design with proper semantic HTML"
       ],
       challenges: "Creating a cohesive retro design system while maintaining modern web performance and accessibility standards.",
-      results: "A fully responsive portfolio website that effectively showcases technical projects and provides an engaging user experience."
+      results: "A fully responsive portfolio website that effectively showcases technical projects and provides an engaging user experience.",
+      // demoUrl: "https://your-live-portfolio-url.com", // Optional example
     }
   ];
 
@@ -277,23 +301,31 @@ export default function ProjectsPage() {
                       </div>
 
                       <div className="flex gap-4 pt-6 border-t border-border">
-                        {project.id === 3 ? (
+                        {project.codeUrl && (
                           <a 
-                            href="https://github.com/leanneallen/sdsuthrift" 
-                            target="_blank" 
+                            href={project.codeUrl}
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="retro-btn px-6 py-3"
                           >
                             VIEW CODE
                           </a>
-                        ) : (
-                          <button className="retro-btn px-6 py-3">
-                            VIEW CODE
-                          </button>
                         )}
-                        <button className="border-2 border-foreground text-foreground px-6 py-3 font-bold uppercase tracking-wider hover:bg-foreground hover:text-background transition-all duration-300">
-                          LIVE DEMO
-                        </button>
+                        {project.demoUrl && (
+                          <a 
+                            href={project.demoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="border-2 border-foreground text-foreground px-6 py-3 font-bold uppercase tracking-wider hover:bg-foreground hover:text-background transition-all duration-300"
+                          >
+                            LIVE DEMO
+                          </a>
+                        )}
+                        {!project.codeUrl && !project.demoUrl && (
+                          <span className="text-secondary text-sm font-mono">
+                            No public links available.
+                          </span>
+                        )}
                       </div>
                     </div>
                   </>

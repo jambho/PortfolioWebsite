@@ -35,7 +35,7 @@ body {
 
 /* Retro terminal effect */
 .terminal-glow {
-  text-shadow: 0 0 10px var(--foreground), 0 0 20px var(--foreground), 0 0 30px var(--foreground);
+  text-shadow: 0 0 10px var(--foreground), 0 0 20px var(--foreground);
 }
 
 .glow-accent {
@@ -127,4 +127,469 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
+}
+
+/* Animated Rabbit Styles */
+.rabbit-container {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  animation: rabbit-bounce 2s infinite ease-in-out;
+}
+
+.rabbit-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.rabbit-head {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50% 50% 40% 40%;
+  border: 1px solid #e0e0e0;
+}
+
+.rabbit-ear-left, .rabbit-ear-right {
+  position: absolute;
+  width: 8px;
+  height: 15px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 50% 50% 0 0;
+}
+
+.rabbit-ear-left {
+  top: 5px;
+  left: 12px;
+  transform: rotate(-15deg);
+}
+
+.rabbit-ear-right {
+  top: 5px;
+  right: 12px;
+  transform: rotate(15deg);
+}
+
+.rabbit-eye-left, .rabbit-eye-right {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: black;
+  border-radius: 50%;
+  top: 6px;
+}
+
+.rabbit-eye-left {
+  left: 5px;
+}
+
+.rabbit-eye-right {
+  right: 5px;
+}
+
+.rabbit-nose {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: pink;
+  border-radius: 50%;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.rabbit-mouth {
+  position: absolute;
+  width: 4px;
+  height: 2px;
+  border: 1px solid black;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.rabbit-tail {
+  position: absolute;
+  top: 25px;
+  right: 5px;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 50%;
+  animation: tail-wiggle 1.5s infinite ease-in-out;
+}
+
+@keyframes rabbit-bounce {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes tail-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(10deg); }
+  75% { transform: rotate(-10deg); }
+}
+
+/* Matrix Animation Styles */
+.matrix-overlay {
+  background: linear-gradient(45deg, #000000, #001100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.matrix-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(90deg, transparent 98%, #00ff41 100%);
+  background-size: 50px 100%;
+  animation: matrix-fall 3s linear infinite;
+}
+
+.matrix-rain::before,
+.matrix-rain::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(90deg, transparent 98%, #00ff41 100%);
+  background-size: 50px 100%;
+  animation: matrix-fall 3s linear infinite;
+}
+
+.matrix-rain::before {
+  animation-delay: -1s;
+  opacity: 0.7;
+}
+
+.matrix-rain::after {
+  animation-delay: -2s;
+  opacity: 0.5;
+}
+
+@keyframes matrix-fall {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.matrix-text {
+  text-align: center;
+  z-index: 10;
+  position: relative;
+}
+
+.matrix-title {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #00ff41;
+  text-shadow: 
+    0 0 10px #00ff41,
+    0 0 20px #00ff41,
+    0 0 30px #00ff41;
+  animation: matrix-glow 2s infinite alternate;
+  margin-bottom: 1rem;
+}
+
+.matrix-subtitle {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.5rem;
+  color: #00ff41;
+  opacity: 0.8;
+  animation: matrix-fade 2s infinite alternate;
+}
+
+@keyframes matrix-glow {
+  0% { 
+    text-shadow: 
+      0 0 10px #00ff41,
+      0 0 20px #00ff41,
+      0 0 30px #00ff41;
+  }
+  100% { 
+    text-shadow: 
+      0 0 20px #00ff41,
+      0 0 30px #00ff41,
+      0 0 40px #00ff41;
+  }
+}
+
+@keyframes matrix-fade {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .matrix-title {
+    font-size: 2rem;
+  }
+  
+  .matrix-subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* Matrix Page Styles */
+.matrix-background {
+  background: #000000;
+  color: #00ff41;
+  font-family: 'Share Tech Mono', monospace;
+  position: relative;
+  overflow: hidden;
+}
+
+.matrix-code-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.matrix-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  color: #00ff41;
+  font-size: 14px;
+  font-family: 'Share Tech Mono', monospace;
+  opacity: 0.7;
+  animation: matrix-fall-down 5s linear infinite;
+  transform: translateY(-100vh);
+}
+
+@keyframes matrix-fall-down {
+  0% { transform: translateY(-100vh); }
+  100% { transform: translateY(100vh); }
+}
+
+.matrix-content {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.matrix-welcome {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.matrix-main-title {
+  font-size: 4rem;
+  font-weight: bold;
+  color: #00ff41;
+  text-shadow: 
+    0 0 10px #00ff41,
+    0 0 20px #00ff41,
+    0 0 30px #00ff41,
+    0 0 40px #00ff41;
+  animation: matrix-title-glow 3s infinite alternate;
+  margin-bottom: 2rem;
+  letter-spacing: 4px;
+}
+
+@keyframes matrix-title-glow {
+  0% { 
+    text-shadow: 
+      0 0 10px #00ff41,
+      0 0 20px #00ff41,
+      0 0 30px #00ff41,
+      0 0 40px #00ff41;
+  }
+  100% { 
+    text-shadow: 
+      0 0 20px #00ff41,
+      0 0 30px #00ff41,
+      0 0 40px #00ff41,
+      0 0 50px #00ff41;
+  }
+}
+
+.matrix-message-container {
+  height: 60px;
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.matrix-message {
+  font-size: 1.5rem;
+  color: #00ff41;
+  opacity: 0.9;
+  animation: matrix-message-fade 2s infinite alternate;
+  text-shadow: 0 0 10px #00ff41;
+}
+
+@keyframes matrix-message-fade {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.matrix-main-message {
+  margin-bottom: 3rem;
+}
+
+.matrix-text {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+.matrix-actions {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.matrix-btn {
+  padding: 1rem 2rem;
+  border: 2px solid #00ff41;
+  background: transparent;
+  color: #00ff41;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.matrix-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: #00ff41;
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.matrix-btn:hover::before {
+  left: 0;
+}
+
+.matrix-btn:hover {
+  color: #000000;
+  box-shadow: 0 0 20px #00ff41;
+}
+
+.matrix-btn-red {
+  border-color: #ff0040;
+  color: #ff0040;
+}
+
+.matrix-btn-red::before {
+  background: #ff0040;
+}
+
+.matrix-btn-red:hover {
+  color: #000000;
+  box-shadow: 0 0 20px #ff0040;
+}
+
+.matrix-easter-egg {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  opacity: 0.3;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.matrix-binary {
+  margin-bottom: 0.5rem;
+  animation: matrix-binary-flicker 4s infinite;
+}
+
+@keyframes matrix-binary-flicker {
+  0%, 90% { opacity: 0.3; }
+  95% { opacity: 0.8; }
+  100% { opacity: 0.3; }
+}
+
+.matrix-glitch {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 98%,
+    rgba(0, 255, 65, 0.03) 100%
+  );
+  background-size: 3px 100%;
+  animation: matrix-glitch-scan 8s linear infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@keyframes matrix-glitch-scan {
+  0% { transform: translateY(-100vh); }
+  100% { transform: translateY(100vh); }
+}
+
+/* Matrix Page Responsive */
+@media (max-width: 768px) {
+  .matrix-main-title {
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+  }
+  
+  .matrix-message {
+    font-size: 1.2rem;
+  }
+  
+  .matrix-text {
+    font-size: 1rem;
+  }
+  
+  .matrix-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .matrix-btn {
+    width: 200px;
+  }
+  
+  .matrix-easter-egg {
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.7rem;
+  }
 }
