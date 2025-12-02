@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 
 interface MatrixCodeHuntProps {
   onComplete: () => void;
@@ -9,47 +9,68 @@ interface MatrixCodeHuntProps {
 interface TargetChar {
   id: number;
   char: string;
-  column: number;
-  row: number;
+  x: number;
+  y: number;
   found: boolean;
 }
 
-const COLUMNS = 50;
-const ROWS = 30;
-const TARGET_COUNT = 7;
+const TARGET_COUNT = 5;
 
 export default function MatrixCodeHunt({ onComplete }: MatrixCodeHuntProps) {
   const [targets, setTargets] = useState<TargetChar[]>([]);
   const [foundCount, setFoundCount] = useState(0);
   const [coordinates, setCoordinates] = useState<string[]>([]);
   const [showCompletion, setShowCompletion] = useState(false);
+  const [matrixColumns, setMatrixColumns] = useState<Array<{chars: string[], speed: number}>>([]);
 
   // Generate random Matrix characters
   const getRandomChar = () => {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-=[]{}|;:,.<>?';
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*';
     return chars[Math.floor(Math.random() * chars.length)];
   };
 
-  // Initialize target characters
+  // Initialize background matrix rain
+  useEffect(() => {
+    const columns = [];
+    const numColumns = 40;
+    for (let i = 0; i < numColumns; i++) {
+      const columnChars = [];
+      for (let j = 0; j < 25; j++) {
+        columnChars.push(getRandomChar());
+      }
+      columns.push({
+        chars: columnChars,
+        speed: Math.random() * 5 + 8, // Slower animation: 8-13 seconds
+      });
+    }
+    setMatrixColumns(columns);
+  }, []);
+
+  // Initialize target characters with better positioning
   useEffect(() => {
     const newTargets: TargetChar[] = [];
-    const coordinateParts = ['37', '.', '42', '19', '-', '11', '8'];
+    const coordinateParts = ['3', '7', '.', '4', '2'];
     const usedPositions = new Set<string>();
 
     for (let i = 0; i < TARGET_COUNT; i++) {
-      let col, row;
+      let x, y;
+      let attempts = 0;
       do {
-        col = Math.floor(Math.random() * COLUMNS);
-        row = Math.floor(Math.random() * (ROWS - 5)) + 2; // Avoid top and bottom edges
-      } while (usedPositions.has(`${col}-${row}`));
+        // Spread targets across the screen more evenly
+        x = 15 + Math.random() * 70; // 15-85% of screen width
+        y = 20 + Math.random() * 60; // 20-80% of screen height
+        attempts++;
+      } while (
+        (usedPositions.has(`${Math.floor(x / 15)}-${Math.floor(y / 15)}`) && attempts < 100)
+      );
 
-      usedPositions.add(`${col}-${row}`);
+      usedPositions.add(`${Math.floor(x / 15)}-${Math.floor(y / 15)}`);
 
       newTargets.push({
         id: i,
         char: coordinateParts[i],
-        column: col,
-        row: row,
+        x,
+        y,
         found: false,
       });
     }
@@ -89,65 +110,62 @@ export default function MatrixCodeHunt({ onComplete }: MatrixCodeHuntProps) {
         <div className="text-accent font-bold text-xl">
           LOCATE THE COORDINATES
         </div>
-        <div className="text-foreground">
+        <div className="text-foreground text-lg">
           Found: {foundCount} / {TARGET_COUNT}
         </div>
-        <div className="text-secondary font-mono text-lg">
+        <div className="text-accent font-mono text-2xl font-bold mt-2">
           {coordinates.join('')}
         </div>
       </div>
 
-      {/* Matrix Rain */}
-      <div className="matrix-rain-hunt">
-        {[...Array(COLUMNS)].map((_, colIndex) => (
+      {/* Slow Matrix Rain Background */}
+      <div className="matrix-rain-background">
+        {matrixColumns.map((column, colIndex) => (
           <div
             key={colIndex}
-            className="matrix-hunt-column"
+            className="matrix-background-column"
             style={{
-              left: `${(colIndex / COLUMNS) * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: `${Math.random() * 3 + 4}s`,
+              left: `${(colIndex / matrixColumns.length) * 100}%`,
+              animationDuration: `${column.speed}s`,
+              animationDelay: `${Math.random() * 3}s`,
             }}
           >
-            {[...Array(ROWS)].map((_, rowIndex) => {
-              const target = targets.find(
-                t => t.column === colIndex && t.row === rowIndex
-              );
-
-              if (target) {
-                return (
-                  <button
-                    key={rowIndex}
-                    onClick={() => handleCharClick(target.id)}
-                    className={`matrix-char target-char ${target.found ? 'found' : 'active'}`}
-                    disabled={target.found}
-                  >
-                    {target.char}
-                  </button>
-                );
-              }
-
-              return (
-                <span key={rowIndex} className="matrix-char normal-char">
-                  {getRandomChar()}
-                </span>
-              );
-            })}
+            {column.chars.map((char, charIndex) => (
+              <span key={charIndex} className="matrix-bg-char">
+                {char}
+              </span>
+            ))}
           </div>
         ))}
       </div>
+
+      {/* Stationary Target Characters */}
+      {targets.map((target) => (
+        <button
+          key={target.id}
+          onClick={() => handleCharClick(target.id)}
+          className={`matrix-target-button ${target.found ? 'found' : 'active'}`}
+          disabled={target.found}
+          style={{
+            left: `${target.x}%`,
+            top: `${target.y}%`,
+          }}
+        >
+          <span className="target-char-content">{target.char}</span>
+        </button>
+      ))}
 
       {/* Completion Message */}
       {showCompletion && (
         <div className="matrix-hunt-completion">
           <div className="completion-content">
-            <h2 className="text-4xl font-bold terminal-glow mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold terminal-glow mb-4">
               COORDINATES ACQUIRED
             </h2>
-            <div className="text-3xl font-mono text-accent mb-6">
+            <div className="text-4xl md:text-5xl font-mono text-accent mb-6 font-bold">
               {coordinates.join('')}
             </div>
-            <p className="text-lg text-secondary">
+            <p className="text-lg md:text-xl text-secondary">
               Location triangulated. Preparing transport to The Architect's Chamber...
             </p>
           </div>
@@ -156,8 +174,8 @@ export default function MatrixCodeHunt({ onComplete }: MatrixCodeHuntProps) {
 
       {/* Instructions */}
       <div className="matrix-hunt-instructions">
-        <p className="text-sm text-secondary">
-          Click the glowing orange characters hidden in the Matrix code
+        <p className="text-base text-foreground font-bold">
+          Click the glowing <span className="text-accent">orange</span> characters
         </p>
       </div>
     </div>
