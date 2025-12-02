@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import MatrixAdventure from './components/easter-egg/MatrixAdventure';
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState('');
@@ -74,6 +75,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen retro-grid">
+      {/* Matrix Adventure Easter Egg */}
+      <MatrixAdventure />
+
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur-sm border-b border-border">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
