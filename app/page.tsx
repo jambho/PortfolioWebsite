@@ -18,14 +18,7 @@ import { ContactTab } from "@/components/terminal/ContactTab";
 import { ShellTab } from "@/components/terminal/ShellTab";
 import { MatrixRain } from "@/components/MatrixRain";
 import { ProjectModalHost } from "@/components/ProjectModalHost";
-
-function Standby() {
-  return (
-    <div className="flex h-full items-center justify-center py-[2vh] font-term text-[max(1.1vh,10px)] tracking-[0.3em] text-accent/40">
-      STANDBY
-    </div>
-  );
-}
+import { ProjectBrowser } from "@/components/ProjectBrowser";
 
 export default function Home() {
   return (
@@ -84,7 +77,7 @@ export default function Home() {
 
       {/* BOTTOM — PROJECT ARCHIVE */}
       <Panel index={10} titleLeft="FILES" titleRight="PROJECT_ARCHIVE" className="max-lg:order-4">
-        <Standby />
+        <ProjectBrowser />
       </Panel>
 
       <div className="scanlines" aria-hidden />

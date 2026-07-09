@@ -4,6 +4,7 @@ import { useClock } from "@/hooks/useClock";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { THEME_NAMES, isTheme } from "@/lib/themes";
 import { sfx } from "@/lib/audio";
+import { content } from "@/lib/content";
 
 /** Top strip: brand · theme/sound/fx controls · live clock (spec §5, §6). */
 export function StatusBar() {
@@ -47,6 +48,9 @@ export function StatusBar() {
           JB://PORTFOLIO
         </span>
         <span className="text-accent/50">v2.0</span>
+        <span suppressHydrationWarning className="text-accent/40 max-md:hidden">
+          © {new Date().getFullYear()} JAMAL BHOLA · {`${content.footer}`}
+        </span>
       </div>
       <div className="flex items-center gap-[2vh]">
         <button type="button" className={btn} onClick={cycleTheme} aria-label="Cycle color theme">
