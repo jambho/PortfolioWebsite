@@ -4,6 +4,9 @@ import { BootSequence } from "@/components/BootSequence";
 import { ClockPanel } from "@/components/panels/ClockPanel";
 import { OperatorPanel } from "@/components/panels/OperatorPanel";
 import { SkillsPanel } from "@/components/panels/SkillsPanel";
+import { ProcessPanel } from "@/components/panels/ProcessPanel";
+import { MemoryPanel } from "@/components/panels/MemoryPanel";
+import { WidgetBoundary } from "@/components/WidgetBoundary";
 
 function Standby() {
   return (
@@ -31,8 +34,10 @@ export default function Home() {
           <Panel index={1} titleLeft="CLOCK" titleRight="LOCAL"><ClockPanel /></Panel>
           <Panel index={3} titleLeft="OPERATOR" titleRight="ID"><OperatorPanel /></Panel>
           <Panel index={5} titleLeft="SKILLS" titleRight="PROF"><SkillsPanel /></Panel>
-          <Panel index={7} titleLeft="PROC" titleRight="TOP"><Standby /></Panel>
-          <Panel index={9} titleLeft="MEM" titleRight="HEAP"><Standby /></Panel>
+          <Panel index={7} titleLeft="PROC" titleRight="TOP"><ProcessPanel /></Panel>
+          <Panel index={9} titleLeft="MEM" titleRight="HEAP">
+            <WidgetBoundary fallbackLabel="MEM OFFLINE"><MemoryPanel /></WidgetBoundary>
+          </Panel>
         </div>
 
         {/* CENTER — TERMINAL */}
