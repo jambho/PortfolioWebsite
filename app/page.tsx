@@ -1,5 +1,6 @@
 import { Panel } from "@/components/Panel";
 import { StatusBar } from "@/components/StatusBar";
+import { BootSequence } from "@/components/BootSequence";
 
 function Standby() {
   return (
@@ -12,6 +13,7 @@ function Standby() {
 export default function Home() {
   return (
     <div className="cockpit-root grid-bg fixed inset-0 grid grid-rows-[3vh_1fr_22vh] gap-[0.75vh] p-[1vh] max-lg:static max-lg:min-h-screen max-lg:grid-rows-none max-lg:grid-cols-1 max-lg:overflow-auto">
+      <BootSequence />
       <a
         href="#terminal"
         className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-[100] focus:bg-panel focus:p-2 focus:text-accent"
