@@ -145,3 +145,7 @@ html[data-motion="reduced"] *, html[data-motion="reduced"] *::before, html[data-
   transition-duration: 0.01ms !important;
 }
 html[data-motion="reduced"] .scanlines { display: none; }
+
+/* eDEX trapezoid tabs (reference analysis §1.3) */
+.tab-skew { transform: skewX(35deg); }
+.tab-skew > * { transform: skewX(-35deg); }
