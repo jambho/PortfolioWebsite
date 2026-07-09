@@ -110,6 +110,9 @@ export function BootSequence() {
       } catch {}
       document.documentElement.removeAttribute("data-booting");
       sfx.play("expand");
+      for (let i = 0; i < 11; i++) {
+        setTimeout(() => sfx.play("panel"), 200 + i * 120); // one blip per staggered panel
+      }
       const t = setTimeout(() => finish(), 1400);
       return () => clearTimeout(t);
     }
