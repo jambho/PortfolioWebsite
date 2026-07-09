@@ -15,6 +15,8 @@ import { TerminalPanel } from "@/components/terminal/TerminalPanel";
 import { AboutTab } from "@/components/terminal/AboutTab";
 import { ProjectsTab } from "@/components/terminal/ProjectsTab";
 import { ContactTab } from "@/components/terminal/ContactTab";
+import { ShellTab } from "@/components/terminal/ShellTab";
+import { MatrixRain } from "@/components/MatrixRain";
 
 function Standby() {
   return (
@@ -61,7 +63,7 @@ export default function Home() {
               about={<AboutTab />}
               projects={<ProjectsTab />}
               contact={<ContactTab />}
-              shell={<div>SECTION LOADING</div>}
+              shell={<ShellTab />}
             />
           </div>
         </Panel>
@@ -85,6 +87,7 @@ export default function Home() {
       </Panel>
 
       <div className="scanlines" aria-hidden />
+      <MatrixRain />
     </div>
   );
 }
