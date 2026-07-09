@@ -8,6 +8,9 @@ import { ProcessPanel } from "@/components/panels/ProcessPanel";
 import { MemoryPanel } from "@/components/panels/MemoryPanel";
 import { WidgetBoundary } from "@/components/WidgetBoundary";
 import { GlobePanel } from "@/components/panels/GlobePanel";
+import { ContactPanel } from "@/components/panels/ContactPanel";
+import { NetStatusPanel } from "@/components/panels/NetStatusPanel";
+import { ActivityPanel } from "@/components/panels/ActivityPanel";
 
 function Standby() {
   return (
@@ -59,9 +62,11 @@ export default function Home() {
           <Panel index={2} titleLeft="WORLD" titleRight="GEO">
             <WidgetBoundary fallbackLabel="GLOBE OFFLINE"><GlobePanel /></WidgetBoundary>
           </Panel>
-          <Panel index={4} titleLeft="UPLINKS" titleRight="CONN"><Standby /></Panel>
-          <Panel index={6} titleLeft="NETSTAT" titleRight="LIVE"><Standby /></Panel>
-          <Panel index={8} titleLeft="TRAFFIC" titleRight="NET"><Standby /></Panel>
+          <Panel index={4} titleLeft="UPLINKS" titleRight="CONN"><ContactPanel /></Panel>
+          <Panel index={6} titleLeft="NETSTAT" titleRight="LIVE"><NetStatusPanel /></Panel>
+          <Panel index={8} titleLeft="TRAFFIC" titleRight="NET">
+            <WidgetBoundary fallbackLabel="NET OFFLINE"><ActivityPanel /></WidgetBoundary>
+          </Panel>
         </div>
       </div>
 
