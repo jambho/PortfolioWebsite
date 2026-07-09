@@ -1,6 +1,9 @@
 import { Panel } from "@/components/Panel";
 import { StatusBar } from "@/components/StatusBar";
 import { BootSequence } from "@/components/BootSequence";
+import { ClockPanel } from "@/components/panels/ClockPanel";
+import { OperatorPanel } from "@/components/panels/OperatorPanel";
+import { SkillsPanel } from "@/components/panels/SkillsPanel";
 
 function Standby() {
   return (
@@ -25,9 +28,9 @@ export default function Home() {
       <div className="grid min-h-0 grid-cols-[17%_1fr_17%] gap-[0.75vh] max-lg:grid-cols-1">
         {/* LEFT — PANEL // SYSTEM */}
         <div className="flex min-h-0 flex-col justify-between gap-[0.75vh] max-lg:order-2">
-          <Panel index={1} titleLeft="CLOCK" titleRight="LOCAL"><Standby /></Panel>
-          <Panel index={3} titleLeft="OPERATOR" titleRight="ID"><Standby /></Panel>
-          <Panel index={5} titleLeft="SKILLS" titleRight="PROF"><Standby /></Panel>
+          <Panel index={1} titleLeft="CLOCK" titleRight="LOCAL"><ClockPanel /></Panel>
+          <Panel index={3} titleLeft="OPERATOR" titleRight="ID"><OperatorPanel /></Panel>
+          <Panel index={5} titleLeft="SKILLS" titleRight="PROF"><SkillsPanel /></Panel>
           <Panel index={7} titleLeft="PROC" titleRight="TOP"><Standby /></Panel>
           <Panel index={9} titleLeft="MEM" titleRight="HEAP"><Standby /></Panel>
         </div>
