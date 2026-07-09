@@ -7,6 +7,7 @@ import { SkillsPanel } from "@/components/panels/SkillsPanel";
 import { ProcessPanel } from "@/components/panels/ProcessPanel";
 import { MemoryPanel } from "@/components/panels/MemoryPanel";
 import { WidgetBoundary } from "@/components/WidgetBoundary";
+import { GlobePanel } from "@/components/panels/GlobePanel";
 
 function Standby() {
   return (
@@ -55,7 +56,9 @@ export default function Home() {
 
         {/* RIGHT — PANEL // NETWORK */}
         <div className="flex min-h-0 flex-col justify-between gap-[0.75vh] max-lg:order-3">
-          <Panel index={2} titleLeft="WORLD" titleRight="GEO"><Standby /></Panel>
+          <Panel index={2} titleLeft="WORLD" titleRight="GEO">
+            <WidgetBoundary fallbackLabel="GLOBE OFFLINE"><GlobePanel /></WidgetBoundary>
+          </Panel>
           <Panel index={4} titleLeft="UPLINKS" titleRight="CONN"><Standby /></Panel>
           <Panel index={6} titleLeft="NETSTAT" titleRight="LIVE"><Standby /></Panel>
           <Panel index={8} titleLeft="TRAFFIC" titleRight="NET"><Standby /></Panel>
