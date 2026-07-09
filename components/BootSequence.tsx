@@ -68,9 +68,13 @@ export function BootSequence() {
         setTimeout(() => setPhase("title-in"), 300);
         return;
       }
-      setLines((prev) => [...prev, all[i]]);
+      // Snapshot the line NOW: the setLines updater runs on a later render,
+      // after `i += 1` below, so referencing `all[i]` inside it would read the
+      // next (eventually out-of-bounds/undefined) line. See tests/boot.repro.
+      const line = all[i];
+      setLines((prev) => [...prev, line]);
       setPct(Math.round(((i + 1) / all.length) * 100));
-      sfx.play(all[i] === "Boot Complete" ? "granted" : "stdout");
+      sfx.play(line === "Boot Complete" ? "granted" : "stdout");
       i += 1;
       t = setTimeout(step, lineDelay(i, all.length));
     };
