@@ -167,3 +167,53 @@ html[data-motion="reduced"] .scanlines { display: none; }
 html[data-theme="interstellar"] {
   --color-r: 2; --color-g: 100; --color-b: 158;
 }
+
+/* ================= INSTANT BOOT SPLASH (spec §7 / perceived load) ================= */
+/* Server-rendered; visible before hydration on first visit only. No JS required. */
+.boot-splash { display: none; }
+html[data-booting="1"] .boot-splash {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  z-index: 85;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4vh;
+  background: var(--bg-black);
+  color: var(--accent);
+  font-family: var(--font-fira), monospace;
+}
+.boot-splash__brand {
+  font-family: var(--font-rajdhani), sans-serif;
+  font-weight: 700;
+  font-size: max(5vh, 30px);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+}
+.boot-splash__bar {
+  position: relative;
+  width: min(40vw, 240px);
+  height: 3px;
+  overflow: hidden;
+  background: var(--accent-30);
+}
+.boot-splash__bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: var(--accent);
+  animation: splash-scan 1.1s ease-in-out infinite;
+}
+@keyframes splash-scan {
+  0% { transform: translateX(-110%); }
+  100% { transform: translateX(360%); }
+}
+.boot-splash__label {
+  font-size: max(1.3vh, 11px);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--accent-50);
+}
+/* Reduced motion never sets data-booting, so the splash stays hidden there. */

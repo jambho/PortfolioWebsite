@@ -65,6 +65,15 @@ export default function RootLayout({
         />
       </head>
       <body className={`${rajdhani.variable} ${firaCode.variable} antialiased`}>
+        {/* Instant pre-hydration splash (first visit only): paints immediately so
+            there is no black gap before the client boot sequence mounts. CSS shows
+            it only while html[data-booting="1"]; the boot overlay (z-90) covers it
+            once hydrated, and it hides the moment data-booting is cleared. */}
+        <div className="boot-splash" aria-hidden="true">
+          <div className="boot-splash__brand">JB-OS</div>
+          <div className="boot-splash__bar" />
+          <div className="boot-splash__label">Initializing kernel…</div>
+        </div>
         {children}
       </body>
     </html>
