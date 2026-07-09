@@ -12,6 +12,9 @@ import { ContactPanel } from "@/components/panels/ContactPanel";
 import { NetStatusPanel } from "@/components/panels/NetStatusPanel";
 import { ActivityPanel } from "@/components/panels/ActivityPanel";
 import { TerminalPanel } from "@/components/terminal/TerminalPanel";
+import { AboutTab } from "@/components/terminal/AboutTab";
+import { ProjectsTab } from "@/components/terminal/ProjectsTab";
+import { ContactTab } from "@/components/terminal/ContactTab";
 
 function Standby() {
   return (
@@ -55,9 +58,9 @@ export default function Home() {
         >
           <div id="terminal" className="h-full">
             <TerminalPanel
-              about={<div>SECTION LOADING</div>}
-              projects={<div>SECTION LOADING</div>}
-              contact={<div>SECTION LOADING</div>}
+              about={<AboutTab />}
+              projects={<ProjectsTab />}
+              contact={<ContactTab />}
               shell={<div>SECTION LOADING</div>}
             />
           </div>
