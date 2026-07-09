@@ -17,6 +17,7 @@ import { ProjectsTab } from "@/components/terminal/ProjectsTab";
 import { ContactTab } from "@/components/terminal/ContactTab";
 import { ShellTab } from "@/components/terminal/ShellTab";
 import { MatrixRain } from "@/components/MatrixRain";
+import { ProjectModalHost } from "@/components/ProjectModalHost";
 
 function Standby() {
   return (
@@ -88,6 +89,7 @@ export default function Home() {
 
       <div className="scanlines" aria-hidden />
       <MatrixRain />
+      <ProjectModalHost />
     </div>
   );
 }
