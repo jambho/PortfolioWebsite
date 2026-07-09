@@ -42,6 +42,9 @@ export function BootSequence() {
       log.current = buildBootLog();
       sfx.init();
       setActive(true);
+      if (window.innerWidth < 768) {
+        setPhase("title-in"); // skip the log on mobile (spec §8)
+      }
     }
   }, []);
 

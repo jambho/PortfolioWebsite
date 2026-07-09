@@ -42,7 +42,7 @@ export function StatusBar() {
     "cursor-pointer bg-transparent border-0 p-0 font-term text-[max(1.2vh,11px)] uppercase tracking-[0.12em] text-accent/70 hover:text-accent transition-colors";
 
   return (
-    <header className="stagger flex items-center justify-between px-[1vh] font-term text-[max(1.2vh,11px)] uppercase tracking-[0.12em]" style={{ "--i": 0 } as React.CSSProperties}>
+    <header className="stagger flex items-center justify-between px-[1vh] font-term text-[max(1.2vh,11px)] uppercase tracking-[0.12em] max-lg:sticky max-lg:top-0 max-lg:z-50 max-lg:bg-panel/95 max-lg:py-2" style={{ "--i": 0 } as React.CSSProperties}>
       <div className="flex items-baseline gap-3">
         <span className="font-display text-[max(1.6vh,13px)] font-bold tracking-[0.2em]">
           JB://PORTFOLIO

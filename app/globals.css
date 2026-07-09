@@ -149,3 +149,10 @@ html[data-motion="reduced"] .scanlines { display: none; }
 /* eDEX trapezoid tabs (reference analysis §1.3) */
 .tab-skew { transform: skewX(35deg); }
 .tab-skew > * { transform: skewX(-35deg); }
+
+/* ================= MOBILE (spec §8) ================= */
+@media (max-width: 767px) {
+  button, a, summary { min-height: 44px; }
+  .tab-skew { transform: skewX(20deg); } /* gentler slant so labels fit */
+  .tab-skew > * { transform: skewX(-20deg); }
+}
