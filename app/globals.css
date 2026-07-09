@@ -1,130 +1,147 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 @import "tailwindcss";
 
+/* ================= THEMES (spec §4.1) ================= */
+:root, html[data-theme="tron"] {
+  --color-r: 170; --color-g: 207; --color-b: 209;
+  --bg-black: #000000; --bg-panel: #05080d; --bg-grey: #262828;
+}
+html[data-theme="matrix"] {
+  --color-r: 0; --color-g: 143; --color-b: 17;
+  --bg-black: #0d0208; --bg-panel: #090b0a; --bg-grey: #262827;
+}
+html[data-theme="blade"] {
+  --color-r: 204; --color-g: 94; --color-b: 55;
+  --bg-black: #000000; --bg-panel: #090b0a; --bg-grey: #262827;
+}
+html[data-theme="apollo"] {
+  --color-r: 235; --color-g: 235; --color-b: 235;
+  --bg-black: #000000; --bg-panel: #191919; --bg-grey: #262827;
+}
+html[data-theme="interstellar"] {
+  --color-r: 3; --color-g: 169; --color-b: 244;
+  --bg-black: #f3f3f3; --bg-panel: #dedede; --bg-grey: #bfbfbf;
+}
+
 :root {
-  --background: #0f0f23;
-  --foreground: #00ff41;
-  --accent: #ff6b35;
-  --secondary: #4a5568;
-  --card-bg: #1a1a2e;
-  --border: #16213e;
+  --accent: rgb(var(--color-r) var(--color-g) var(--color-b));
+  --accent-50: rgb(var(--color-r) var(--color-g) var(--color-b) / 0.5);
+  --accent-30: rgb(var(--color-r) var(--color-g) var(--color-b) / 0.3);
+  --ease-panel: cubic-bezier(0.85, 0.5, 0.85, 0.5);
+  --ease-fade: cubic-bezier(0.4, 0, 1, 1);
+  --ease-overshoot: linear(0, 0.0089, 0.0354, 0.0787, 0.1375, 0.2103, 0.2953, 0.3904, 0.4934, 0.6018, 0.7132, 0.8249, 0.9346, 1.0396, 1.1377, 1.2266, 1.3043, 1.3692, 1.4197, 1.4549, 1.4741, 1.4771, 1.4642, 1.4363, 1.3949, 1.3422, 1.281, 1.2151, 1.1487, 1.0873, 1.0371, 1.0053, 1);
 }
 
+/* ============ TAILWIND TOKEN BRIDGE (v4) ============ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-secondary: var(--secondary);
-  --color-card-bg: var(--card-bg);
-  --color-border: var(--border);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: rgb(var(--color-r) var(--color-g) var(--color-b));
+  --color-panel: var(--bg-panel);
+  --color-cockpit: var(--bg-grey);
+  --color-abyss: var(--bg-black);
+  --color-warn: #ffcc00;
+  --color-error: #ff4444;
+  --font-display: var(--font-rajdhani), sans-serif;
+  --font-term: var(--font-fira), monospace;
 }
 
-* {
-  box-sizing: border-box;
-}
-
+/* ================= BASE ================= */
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; padding: 0; }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: 'Orbitron', monospace;
-  line-height: 1.6;
-  overflow-x: hidden;
+  background: var(--bg-panel);
+  color: var(--accent);
+  font-family: var(--font-fira), monospace;
+  font-size: max(1.6vh, 13px);
+}
+::selection { background: var(--accent-30); }
+
+/* eDEX grid backdrop (reference analysis §1.2) */
+.grid-bg {
+  background:
+    linear-gradient(90deg, var(--bg-panel) calc(2vh - 1px), transparent 1%) center,
+    linear-gradient(var(--bg-panel) calc(2vh - 1px), transparent 1%) center,
+    var(--bg-grey);
+  background-size: 2vh 2vh;
 }
 
-/* Retro terminal effect */
-.terminal-glow {
-  text-shadow: 0 0 10px var(--foreground), 0 0 20px var(--foreground), 0 0 30px var(--foreground);
+/* Panel-interior scrollbars */
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-track { background: var(--accent-30); border: 3px solid var(--bg-panel); }
+*::-webkit-scrollbar-thumb { background: var(--accent); }
+
+/* ================= PANEL CHROME ================= */
+.panel-frame {
+  --aug-border-all: 2px;
+  --aug-border-bg: var(--accent-50);
+  --aug-tl: 10px; --aug-br: 10px; --aug-tr: 10px; --aug-bl: 10px;
+  background: rgb(from var(--bg-panel) r g b / 0.85);
+}
+.hairline { border-bottom: 1px solid var(--accent-30); position: relative; }
+.hairline::before, .hairline::after {
+  content: ""; position: absolute; bottom: -4px; width: 1px; height: 4px;
+  background: var(--accent-30);
+}
+.hairline::before { left: 0; }
+.hairline::after { right: 0; }
+
+/* ================= KEYFRAMES ================= */
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes flicker-in {
+  0% { opacity: 0; } 20% { opacity: 1; } 35% { opacity: 0.3; }
+  55% { opacity: 1; } 70% { opacity: 0.6; } 100% { opacity: 1; }
+}
+@keyframes panel-in {
+  0% { opacity: 0; clip-path: inset(50% 0 50% 0); }
+  40% { opacity: 1; clip-path: inset(50% 0 50% 0); }
+  70% { clip-path: inset(0 0 0 0); }
+  100% { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+@keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+@keyframes tick-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes sweep { from { transform: translateY(-100%); } to { transform: translateY(100vh); } }
+@keyframes derezz-top {
+  from { transform: translateY(100%) translateX(-1%); }
+  to { transform: translateY(100%) translateX(-5%); }
+}
+@keyframes derezz-bottom {
+  from { transform: translateY(-100%) translateX(1%); }
+  to { transform: translateY(-100%) translateX(3%); }
 }
 
-.glow-accent {
-  text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+/* ================= ENTRANCE STAGGER (spec §9.3) ================= */
+/* Panels set style="--i: n". Entrance plays once the boot overlay lifts. */
+html[data-booting="1"] .cockpit-root { visibility: hidden; }
+html:not([data-booting]) .stagger {
+  animation: panel-in 0.5s var(--ease-fade) both;
+  animation-delay: calc(var(--i, 0) * 120ms);
+}
+html:not([data-booting]) .stagger-title {
+  animation: flicker-in 0.18s linear both;
+  animation-delay: calc(var(--i, 0) * 120ms + 250ms);
 }
 
-/* Retro grid background */
-.retro-grid {
-  background-image: 
-    linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px);
-  background-size: 50px 50px;
+/* ================= CRT LAYER (spec §4.3) ================= */
+.scanlines { position: fixed; inset: 0; pointer-events: none; z-index: 60; }
+.scanlines::before {
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    to bottom, rgb(0 0 0 / 0.03) 0 1px, transparent 1px 3px);
 }
+.scanlines::after {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 18vh;
+  background: linear-gradient(to bottom, transparent, rgb(var(--color-r) var(--color-g) var(--color-b) / 0.02), transparent);
+  animation: sweep 8s linear infinite;
+}
+html[data-fx="off"] .scanlines { display: none; }
 
-/* Animated cursor */
-.cursor-blink::after {
-  content: '|';
-  animation: blink 1s infinite;
+/* ================= REDUCED MOTION (spec §9.5) ================= */
+@media (prefers-reduced-motion: reduce) {
+  html { --reduced: 1; }
 }
-
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+html[data-motion="reduced"] *, html[data-motion="reduced"] *::before, html[data-motion="reduced"] *::after,
+:root:has([data-force-reduced]) * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
 }
-
-/* Retro button styles */
-.retro-btn {
-  background: linear-gradient(45deg, var(--accent), #ff8c42);
-  border: 2px solid var(--accent);
-  color: var(--background);
-  font-family: 'Orbitron', monospace;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-}
-
-.retro-btn:hover {
-  background: linear-gradient(45deg, #ff8c42, var(--accent));
-  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
-  transform: translateY(-2px);
-}
-
-/* Card styles */
-.retro-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 2rem;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.retro-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
-  transition: left 0.5s ease;
-}
-
-.retro-card:hover::before {
-  left: 100%;
-}
-
-.retro-card:hover {
-  border-color: var(--foreground);
-  box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--card-bg);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--foreground);
-  border-radius: 6px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
-}
+html[data-motion="reduced"] .scanlines { display: none; }
