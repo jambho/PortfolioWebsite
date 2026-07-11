@@ -49,7 +49,7 @@ export function ProjectBrowser() {
       ))}
 
       <button type="button" data-augmented-ui="tl-clip br-clip border" className={tileClass}
-        style={{ "--i": 5 } as React.CSSProperties}
+        style={{ "--i": content.projects.length } as React.CSSProperties}
         onClick={() => { emit("setTab", "about"); }} aria-label="Open about section">
         <span className="font-display text-[max(2vh,15px)] font-bold tracking-[0.1em]">.MD</span>
         <span className="text-[max(1.15vh,10px)]">about.md</span>
@@ -57,7 +57,15 @@ export function ProjectBrowser() {
       </button>
 
       <button type="button" data-augmented-ui="tl-clip br-clip border" className={tileClass}
-        style={{ "--i": 6 } as React.CSSProperties}
+        style={{ "--i": content.projects.length + 1 } as React.CSSProperties}
+        onClick={() => { emit("setTab", "experience"); }} aria-label="Open experience section">
+        <span className="font-display text-[max(2vh,15px)] font-bold tracking-[0.1em]">.LOG</span>
+        <span className="text-[max(1.15vh,10px)]">career.log</span>
+        <span className="text-[max(1vh,9px)] tracking-[0.15em] text-accent/50">LOG</span>
+      </button>
+
+      <button type="button" data-augmented-ui="tl-clip br-clip border" className={tileClass}
+        style={{ "--i": content.projects.length + 2 } as React.CSSProperties}
         onClick={() => { emit("setTab", "contact"); }} aria-label="Open contact section">
         <span className="font-display text-[max(2vh,15px)] font-bold tracking-[0.1em]">.SH</span>
         <span className="text-[max(1.15vh,10px)]">contact.sh</span>
@@ -66,7 +74,7 @@ export function ProjectBrowser() {
 
       <a href={content.resumeUrl} target="_blank" rel="noopener noreferrer"
         data-augmented-ui="tl-clip br-clip border" className={`${tileClass} no-underline`}
-        style={{ "--i": 7 } as React.CSSProperties} aria-label="Open resume PDF">
+        style={{ "--i": content.projects.length + 3 } as React.CSSProperties} aria-label="Open resume PDF">
         <span className="font-display text-[max(2vh,15px)] font-bold tracking-[0.1em]">.PDF</span>
         <span className="text-[max(1.15vh,10px)]">Jamal_Bhola_resume.pdf</span>
         <span className="text-[max(1vh,9px)] tracking-[0.15em] text-accent/50">PDF ▸ OPEN</span>

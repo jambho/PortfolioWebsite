@@ -16,10 +16,17 @@ describe("terminal commands (spec §6 ShellTab)", () => {
     expect(out).toContain("Software Engineer & Web Developer");
     expect(out).toContain("San Diego State University");
   });
-  it("projects lists all five titles", () => {
+  it("projects lists first and last titles", () => {
     const out = text(runCommand("projects"));
     expect(out).toContain("Discord AI Voice Cloning Bot");
-    expect(out).toContain("Portfolio Website");
+    expect(out).toContain("FPGA Rhythm Game");
+    expect(out).toContain("JB-OS Portfolio Terminal");
+  });
+  it("experience prints the work history", () => {
+    const out = text(runCommand("experience"));
+    expect(out).toContain("Full Stack Developer");
+    expect(out).toContain("SDSU Mechatronics");
+    expect(text(runCommand("cat career.log"))).toContain("Help Desk");
   });
   it("open 2 emits a 0-based openProject action", () => {
     const r = runCommand("open 2");

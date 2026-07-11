@@ -33,7 +33,7 @@ export function Panel({
         <p className="m-0">{titleLeft}</p>
         {titleRight ? <p className="m-0 text-right opacity-70">{titleRight}</p> : null}
       </h3>
-      <div className={`min-h-0 flex-1 ${bodyClassName}`}>{children}</div>
+      <div className={`min-h-0 flex-1 overflow-y-auto ${bodyClassName}`}>{children}</div>
     </section>
   );
 }

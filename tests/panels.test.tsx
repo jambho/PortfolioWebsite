@@ -19,7 +19,7 @@ describe("OperatorPanel", () => {
 describe("SkillsPanel", () => {
   it("renders every skill from every group", () => {
     render(<SkillsPanel />);
-    for (const s of ["React", "Django", "PostgreSQL", "Docker"]) {
+    for (const s of ["React", "Django", "Verilog / FPGA", "Docker"]) {
       expect(screen.getByText(s)).toBeTruthy();
     }
   });
@@ -31,7 +31,7 @@ describe("ContactPanel", () => {
     const links = screen.getAllByRole("link");
     const hrefs = links.map((a) => a.getAttribute("href"));
     expect(hrefs).toContain("mailto:jamal.bhola@gmail.com");
-    expect(hrefs).toContain("https://github.com/jamalbhola");
+    expect(hrefs).toContain("https://github.com/jambho");
     expect(hrefs).toContain("https://linkedin.com/in/jamalbhola");
     expect(hrefs).toContain("https://twitter.com/jambho");
     expect(hrefs).toContain("/Jamal_Bhola_resume.pdf");

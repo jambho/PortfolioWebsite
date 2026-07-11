@@ -14,6 +14,7 @@ import { ActivityPanel } from "@/components/panels/ActivityPanel";
 import { TerminalPanel } from "@/components/terminal/TerminalPanel";
 import { AboutTab } from "@/components/terminal/AboutTab";
 import { ProjectsTab } from "@/components/terminal/ProjectsTab";
+import { ExperienceTab } from "@/components/terminal/ExperienceTab";
 import { ContactTab } from "@/components/terminal/ContactTab";
 import { ShellTab } from "@/components/terminal/ShellTab";
 import { MatrixRain } from "@/components/MatrixRain";
@@ -74,6 +75,7 @@ export default function Home() {
             <TerminalPanel
               about={<AboutTab />}
               projects={<ProjectsTab />}
+              experience={<ExperienceTab />}
               contact={<ContactTab />}
               shell={<ShellTab />}
             />

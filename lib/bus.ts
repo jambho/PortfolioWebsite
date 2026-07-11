@@ -8,7 +8,7 @@
 type Handler = (detail: any) => void;
 const PREFIX = "jb:";
 
-export type TabId = "about" | "projects" | "contact" | "shell";
+export type TabId = "about" | "projects" | "experience" | "contact" | "shell";
 
 export function emit(name: "openProject", detail: number): void;
 export function emit(name: "setTab", detail: TabId): void;

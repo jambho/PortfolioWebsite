@@ -23,9 +23,11 @@ npx tsc --noEmit   # typecheck
 
 ## Hard rules
 
-1. **Content is frozen.** All user-visible copy (bio, projects, contact) lives in `lib/content.ts`
-   (plan Task 2) and is migrated verbatim from the old `app/page.tsx` / `app/projects/page.tsx`.
-   Never rewrite, "improve", or trim it. `tests/content.test.ts` is the gate.
+1. **Content is single-sourced.** All user-visible copy (bio, projects, experience, contact) lives
+   in `lib/content.ts` and, as of 2026-07-10, is aligned to `public/Jamal_Bhola_resume.pdf` and
+   github.com/jambho (user-authorized update; supersedes the original verbatim freeze). Never
+   invent achievements, metrics, or dates not backed by the resume/GitHub. `tests/content.test.ts`
+   is the gate.
 2. **License wall.** eDEX-UI is GPL-3.0: never copy its code, fonts, sounds, or vendor data into
    this repo. Re-implement from `docs/design/REFERENCE-ANALYSIS.md` only.
 3. **Only approved runtime dep:** `augmented-ui`. No three.js, xterm.js, howler, or animation libs.
@@ -48,6 +50,6 @@ npx tsc --noEmit   # typecheck
 
 ## Known flags (do not "fix" silently)
 
-- Contact links say `github.com/jamalbhola` / `linkedin.com/in/jamalbhola`, but the repo remote
-  is `github.com/jambho` and Twitter is `@jambho`. Preserved as-is — the user must confirm.
+- RESOLVED 2026-07-10: contact GitHub link is `github.com/jambho` and LinkedIn is
+  `linkedin.com/in/jamalbhola` — both confirmed by the resume header.
 - `public/Jamal_Bhola_resume.pdf` is the served resume; don't rename or move it.

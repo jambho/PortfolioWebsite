@@ -4,6 +4,7 @@ import type { TabId } from "@/lib/bus";
 const TABS: { id: TabId; label: string }[] = [
   { id: "about", label: "ABOUT" },
   { id: "projects", label: "PROJECTS" },
+  { id: "experience", label: "EXPERIENCE" },
   { id: "contact", label: "CONTACT" },
   { id: "shell", label: "SHELL" },
 ];

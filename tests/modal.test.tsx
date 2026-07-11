@@ -8,7 +8,7 @@ afterEach(cleanup);
 describe("ProjectModalHost", () => {
   it("opens the full dossier on bus event and closes on Escape", () => {
     render(<ProjectModalHost />);
-    act(() => { emit("openProject", 2); });
+    act(() => { emit("openProject", 3); });
     expect(screen.getByRole("dialog")).toBeTruthy();
     expect(screen.getByText("SDSU Thrift Website")).toBeTruthy();
     expect(screen.getByText(/Led the development of a student marketplace/)).toBeTruthy();

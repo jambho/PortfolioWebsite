@@ -18,7 +18,7 @@ export const PROMPT = "visitor@jamal-bhola:~$";
 
 const t = (text: string, kind?: TermLine["kind"]): TermLine => ({ text, kind });
 
-const FILES = ["about.md", "contact.sh", "resume.pdf", ...content.projects.map((p) => p.file)];
+const FILES = ["about.md", "career.log", "contact.sh", "resume.pdf", ...content.projects.map((p) => p.file)];
 
 function aboutLines(): TermLine[] {
   return [
@@ -33,6 +33,20 @@ function aboutLines(): TermLine[] {
     t(`FOCUS      ${content.about.focusAreas}`),
     t(""),
     ...content.skills.map((g) => t(`${g.label.toUpperCase().padEnd(9)} ${g.skills.join(", ")}`, "dim")),
+  ];
+}
+
+function experienceLines(): TermLine[] {
+  return [
+    t("# CAREER.LOG", "head"),
+    t(""),
+    ...content.experience.flatMap((e) => [
+      t(`${e.role} — ${e.org}`, "ok"),
+      t(e.date, "dim"),
+      ...e.bullets.map((b) => t(`  • ${b}`)),
+      t(""),
+    ]),
+    t(`EDUCATION  ${content.about.education[0].degree} — ${content.about.education[0].school}`),
   ];
 }
 
@@ -93,6 +107,7 @@ const HELP: [string, string][] = [
   ["about", "operator dossier (cat about.md)"],
   ["projects", "list project archive (ls)"],
   ["open <n>", "open project dossier n"],
+  ["experience", "work history (cat career.log)"],
   ["contact", "uplink directory (./contact.sh)"],
   ["resume", "open resume.pdf"],
   ["theme <name>", `switch theme: ${THEME_NAMES.join(" | ")}`],
@@ -132,6 +147,9 @@ export function runCommand(raw: string): CmdResult {
         actions: [{ type: "openProject", index: n - 1 }],
       };
     }
+    case "experience":
+    case "career":
+      return { lines: experienceLines() };
     case "contact":
       return { lines: contactLines() };
     case "resume":
@@ -139,6 +157,7 @@ export function runCommand(raw: string): CmdResult {
     case "cat": {
       const f = args[0] ?? "";
       if (f === "about.md") return { lines: aboutLines() };
+      if (f === "career.log") return { lines: experienceLines() };
       if (f === "contact.sh") return { lines: contactLines() };
       if (f === "resume.pdf") return { lines: [t("cat: resume.pdf: binary file — try `resume`", "err")] };
       const proj = content.projects.findIndex((p) => p.file === f);

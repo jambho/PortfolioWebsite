@@ -42,6 +42,25 @@ export function ProjectModalHost() {
         <span>ROLE: {p.role}</span>
       </div>
 
+      {p.metrics?.length ? (
+        <div className="mb-[1.5vh] flex flex-wrap gap-[0.75vh]">
+          {p.metrics.map((m) => (
+            <div
+              key={m.label}
+              data-augmented-ui="tl-clip br-clip border"
+              className="min-w-[10ch] px-3 py-1.5 [--aug-border-all:1px] [--aug-border-bg:var(--accent-30)] [--aug-tl:6px] [--aug-br:6px]"
+            >
+              <div className="font-display text-[max(2.2vh,18px)] font-bold leading-tight text-accent">
+                {m.value}
+              </div>
+              <div className="font-term text-[max(1vh,9px)] tracking-[0.15em] text-accent/50">
+                {m.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : null}
+
       <Section label="Dossier">{p.longDescription}</Section>
 
       <Section label="Key Features">

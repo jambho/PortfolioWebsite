@@ -4,7 +4,7 @@ import { TabBar } from "./TabBar";
 import { onBus, type TabId } from "@/lib/bus";
 import { sfx } from "@/lib/audio";
 
-const VALID: TabId[] = ["about", "projects", "contact", "shell"];
+const VALID: TabId[] = ["about", "projects", "experience", "contact", "shell"];
 
 function tabFromHash(): TabId {
   if (typeof window === "undefined") return "about";
@@ -12,7 +12,13 @@ function tabFromHash(): TabId {
   return (VALID as string[]).includes(h) ? (h as TabId) : "about";
 }
 
-type Props = { about: ReactNode; projects: ReactNode; contact: ReactNode; shell: ReactNode };
+type Props = {
+  about: ReactNode;
+  projects: ReactNode;
+  experience: ReactNode;
+  contact: ReactNode;
+  shell: ReactNode;
+};
 
 /** Center stage: trapezoid tabs + routed tab panels, hash-synced (spec §6). */
 export function TerminalPanel(props: Props) {

@@ -11,7 +11,8 @@ describe("boot log (spec §7 T1)", () => {
     // personal flavor: every project module gets mounted
     const joined = log.join("\n");
     expect(joined).toContain("voice_bot.py");
-    expect(joined).toContain("portfolio.tsx");
+    expect(joined).toContain("rhythm_game.v");
+    expect(joined).toContain("jb_os.tsx");
     // license wall: no eDEX strings
     expect(joined).not.toMatch(/eDEX/i);
   });
